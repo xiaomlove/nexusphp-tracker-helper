@@ -1,0 +1,57 @@
+<?php
+
+return [
+    'AllowDataCount' => '配置允许客户端记录数',
+    'DenyDataCount' => '配置拒绝客户端记录数',
+    'DenyPeerIdsCount' => '拒绝 PeerId 记录数',
+    'DenyAgentsCount' => '拒绝 Agent 记录数',
+    'DenyPeerIdAndAgentCount' => 'PeerId+Agent 拒绝记录数',
+    'AllowPeerIdAndAgentCount' => 'PeerId+Agent 允许记录数',
+
+    'Version' => '版本号',
+    'ReleaseDate' => '发布日期',
+    'TokenAudience' => '授权给',
+    'TokenExpiresAt' => '有效期至',
+    'SystemStartsAt' => '系统启动时间',
+    'SystemStartsCostTime' => '系统启动耗时',
+    'PeerSizeAuthorized' => '允许最大同伴数',
+
+    'Total' => '总记录数',
+    'LastSyncAt' => '上次同步时间',
+    'LastSyncSuccessCount' => '上次同步成功数',
+    'LastSyncFailCount' => '上次同步失败数',
+    'LastSyncCostTime' => '上次同步耗时',
+    'SyncInterval' => '同步间隔(秒)',
+    'IsSyncRunning' => '是否同步中',
+
+
+    'SeederCount' => '做种数',
+    'LeecherCount' => '下载数',
+    'ToRemoveFromDBCount' => '待删除数量',
+    'LastRemoveFromDBAt' => '上次删除时间',
+    'LastRemoveFromDBCount' => '上次删除数量',
+    'RemoveFromDBInterval' => '删除间隔(秒)',
+
+    'TotalRequest' => '请求总数',
+    'RequestTimeAverage' => '请求平均耗时(毫秒)',
+    'AnnounceTotalRequest' => '汇报请求总数',
+    'AnnounceRequestTimeAverage' => '汇报请求平均耗时(毫秒)',
+    'ScrapeTotalRequest' => '刮削请求总数',
+    'ScrapeRequestTimeAverage' => '刮削请求平均耗时(毫秒)',
+    'ThroughPut' => '吞吐量(每秒)',
+    'Concurrency' => '并发量',
+
+    'MemCurrent' => '当前分配内存',
+    'MemTotal' => '运行以来分配总内存',
+    'MemSys' => '从操作系统获得内存',
+    'NumGC' => '垃圾回收次数',
+    'NumGoroutines' => 'Go 协程数量',
+    'GoVersion' => 'Go 版本',
+
+    'allocs' => 'allocs',
+    'block' => 'block',
+    'goroutine' => 'goroutine',
+    'heap' => 'heap',
+    'mutex' => 'mutex',
+    'threadcreate' => 'threadcreate',
+];
