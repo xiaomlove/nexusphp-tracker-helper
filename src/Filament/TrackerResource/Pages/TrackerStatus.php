@@ -21,9 +21,10 @@ class TrackerStatus extends Page
     protected ?string $maxContentWidth = 'full';
 
 //    protected static string $view = 'tracker::tracker-status';
-    protected static string $view = 'filament::pages.dashboard';
+//    protected static string $view = 'filament::pages.dashboard';
+    protected static string $view = 'filament-panels::pages.dashboard';
 
-    protected function getWidgets(): array
+    protected function getVisibleWidgets(): array
     {
         return [
             BasicStatus::class,

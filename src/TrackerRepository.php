@@ -352,7 +352,7 @@ class TrackerRepository extends BasePlugin
                     return;
                 }
                 $requirePassSeconds = $sendPeriod[$alarmCount];
-                $diffInSeconds = now()->diffInSeconds($lastAlarmAt);
+                $diffInSeconds = now()->diffInSeconds($lastAlarmAt, true);
                 if ($diffInSeconds < $requirePassSeconds) {
                     do_log(sprintf("$logPrefix, current diffInSeconds: %s < requirePassSeconds: %s, return ...", $diffInSeconds, $requirePassSeconds));
                     return;
