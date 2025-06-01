@@ -1,6 +1,7 @@
 <?php
 namespace NexusPlugin\Tracker;
 
+use App\Support\StaticMake;
 use Filament\Contracts\Plugin;
 use Filament\Panel;
 use NexusPlugin\Tracker\Filament\TrackerResource;
@@ -13,10 +14,26 @@ use NexusPlugin\Tracker\Filament\Widgets\SnatchedStatus;
 use NexusPlugin\Tracker\Filament\Widgets\SystemResourceUsage;
 use NexusPlugin\Tracker\Filament\Widgets\TorrentStatus;
 use NexusPlugin\Tracker\Filament\Widgets\UserStatus;
+use NexusPlugin\Tracker\Filament\Widgets\WorkerStatus;
 
-class TrackerHelper implements Plugin
+class Tracker implements Plugin
 {
+    use StaticMake;
+
     const ID = "tracker";
+    const WIDGETS = [
+        BasicStatus::class,
+        RequestStatus::class,
+        WorkerStatus::class,
+//        UserStatus::class,
+//        TorrentStatus::class,
+        PeerStatus::class,
+//        SnatchedStatus::class,
+        AgentStatus::class,
+        SystemResourceUsage::class,
+        PprofStatus::class,
+    ];
+
     public function getId(): string
     {
         return self::ID;
@@ -28,28 +45,13 @@ class TrackerHelper implements Plugin
             ->resources([
                 TrackerResource::class,
             ])
-            ->widgets([
-                BasicStatus::class,
-                RequestStatus::class,
-                UserStatus::class,
-                TorrentStatus::class,
-                PeerStatus::class,
-                SnatchedStatus::class,
-                AgentStatus::class,
-                SystemResourceUsage::class,
-                PprofStatus::class,
-            ])
+            ->widgets(self::WIDGETS)
         ;
     }
 
     public function boot(Panel $panel): void
     {
 
-    }
-
-    public static function make(): static
-    {
-        return app(static::class);
     }
 
 }

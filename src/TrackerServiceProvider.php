@@ -20,7 +20,7 @@ class TrackerServiceProvider extends PackageServiceProvider
     public function packageRegistered()
     {
         Panel::configureUsing(function (Panel $panel) {
-            $panel->plugin(TrackerHelper::make());
+            $panel->plugin(Tracker::make());
         });
 
     }

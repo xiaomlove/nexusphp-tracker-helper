@@ -54,4 +54,18 @@ return [
     'heap' => 'heap',
     'mutex' => 'mutex',
     'threadcreate' => 'threadcreate',
+
+    'WorkerCount' => '同步 Worker 数量',
+    'WorkerRunInterval' => '运行间隔(秒)',
+    'LastRunWorkerId' => '上次运行 Worker Id',
+    'WorkerLastRunAt' => '上次运行时间',
+    'WorkerLastRunCostTime' => '上次运行耗时',
+    'WorkerLastRunSyncUserCount' => '上次同步 User 数',
+    'WorkerLastRunSyncUserResult' => '上次同步 User 结果',
+    'WorkerLastRunSyncTorrentCount' => '上次同步 Torrent 数',
+    'WorkerLastRunSyncTorrentResult' => '上次同步 Torrent 结果',
+    'WorkerLastRunSyncSnatchedCount' => '上次同步 Snatched 数',
+    'WorkerLastRunSyncSnatchedResult' => '上次同步 Snatched 结果',
+    'WorkerLastRunSyncPeerCount' => '上次同步 Peer 数',
+    'WorkerLastRunSyncPeerResult' => '上次同步 Peer 结果',
 ];

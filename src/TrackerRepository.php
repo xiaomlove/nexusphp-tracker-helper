@@ -19,17 +19,26 @@ class TrackerRepository extends BasePlugin
 {
     use OptionsTrait;
 
-    const ID = "tracker";
+    const ID = Tracker::ID;
 
     const SETTING_PREFIX = "go_tracker";
 
-    const COMPATIBLE_VERSION = '1.8.14';
+    const COMPATIBLE_NP_VERSION = '1.9.4';
+
+    const VERSION = '2.0.0';
 
     private static array $statusData = [];
 
 
     public function install()
     {
+        $redis = NexusDB::redis();
+        $info = $redis->info("server");
+        $redisCurrentVersion = $info['redis_version'];
+        $redisMinVersion = "7.4.0";
+        if (version_compare($redisCurrentVersion, $redisMinVersion, '<')) {
+            throw new \RuntimeException("Redis version: $redisCurrentVersion not supported, require >= $redisMinVersion");
+        }
         $this->runMigrations($this->getMigrationFilePath());
     }
 
@@ -49,7 +58,7 @@ class TrackerRepository extends BasePlugin
         add_filter('torrent_detail', [$self, 'filterAddSeederLeecherCountForDetail'], 10, 1);
         add_filter('torrent_seeder_leecher_list', [$self, 'filterListSeederAndLeechers'], 10, 2);
 
-        add_action('nexus_setting_update', [$self, 'actionSaveToRedisForNginx']);
+//        add_action('nexus_setting_update', [$self, 'actionSaveToRedisForNginx']);
     }
 
 
@@ -58,20 +67,9 @@ class TrackerRepository extends BasePlugin
         return dirname(__DIR__) . '/database/migrations';
     }
 
-    //测试模式下
-    //测试用户只请求新服务器，数据只存在于新 tracker，旧的是没有的。但会定时同步，因此可以使用此配置。这部分用户是模拟正式上线，这也是测试模式意义所在
-    //非测试用户请求做镜像，两边都有，数据独立维护，但由于非测试用户不做数据同步，因此不能使用接口，新数据只为做参考，保持非测试用户的数据准确性
-
-    //非测试模式下
-    //全体用户数只请求新服务器，不镜像，也即正式上线。数据在新服务器，定时同步，也可以使用此配置
     private function isFrontendUseTrackerApi(): bool
     {
-        $testModeEnabled = get_setting($this->getIsTestModeSettingName()) == "yes";
-        if ($testModeEnabled && !$this->isCurrentUserTest()) {
-            return false;
-        }
         return get_setting($this->getIsFrontendUseTrackerApiSettingName()) == "yes";
-
     }
 
     public function filterAddSettingTab(array $tabs): array
@@ -94,17 +92,17 @@ class TrackerRepository extends BasePlugin
                     ->label($this->trans("tracker.is_frontend_use_tracker_api"))
                     ->helperText($this->trans("tracker.is_frontend_use_tracker_api_help"))
                 ,
-                Forms\Components\Radio::make($this->getIsTestModeSettingName())
-                    ->options(self::$yesOrNo)
-                    ->inline()
-                    ->label($this->trans("tracker.is_test_mode"))
-                    ->helperText($this->trans("tracker.is_test_mode_help"))
-                ,
-                Forms\Components\Textarea::make($this->getTestModeUidSettingName())
-                    ->label($this->trans("tracker.test_mode_uid"))
-                    ->helperText($this->trans("tracker.test_mode_uid_help"))
-                    ->columnSpanFull()
-                ,
+//                Forms\Components\Radio::make($this->getIsTestModeSettingName())
+//                    ->options(self::$yesOrNo)
+//                    ->inline()
+//                    ->label($this->trans("tracker.is_test_mode"))
+//                    ->helperText($this->trans("tracker.is_test_mode_help"))
+//                ,
+//                Forms\Components\Textarea::make($this->getTestModeUidSettingName())
+//                    ->label($this->trans("tracker.test_mode_uid"))
+//                    ->helperText($this->trans("tracker.test_mode_uid_help"))
+//                    ->columnSpanFull()
+//                ,
             ])->columns(2);
 
         return $tabs;
@@ -141,9 +139,11 @@ class TrackerRepository extends BasePlugin
             $id = $row['id'];
             if (isset($result['data'][$id]['SeederCount'])) {
                 $row['seeders'] = $result['data'][$id]['SeederCount'];
+                do_log("torrent: $id -> seeders: {$row['seeders']}", "debug");
             }
             if (isset($result['data'][$id]['LeecherCount'])) {
                 $row['leechers'] = $result['data'][$id]['LeecherCount'];
+                do_log("torrent: $id -> leechers: {$row['leechers']}", "debug");
             }
         }
         return $rows;

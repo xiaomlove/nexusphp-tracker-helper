@@ -7,7 +7,7 @@ use App\Repositories\DashboardRepository;
 use Illuminate\Contracts\View\View;
 use Nexus\Database\NexusDB;
 
-class TorrentStat extends StatTable
+class TorrentStats extends StatTable
 {
     protected static ?int $sort = 102;
 

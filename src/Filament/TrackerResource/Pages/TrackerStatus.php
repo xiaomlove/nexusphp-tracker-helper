@@ -13,6 +13,8 @@ use NexusPlugin\Tracker\Filament\Widgets\SnatchedStatus;
 use NexusPlugin\Tracker\Filament\Widgets\SystemResourceUsage;
 use NexusPlugin\Tracker\Filament\Widgets\TorrentStatus;
 use NexusPlugin\Tracker\Filament\Widgets\UserStatus;
+use NexusPlugin\Tracker\Filament\Widgets\WorkerStatus;
+use NexusPlugin\Tracker\Tracker;
 
 class TrackerStatus extends Page
 {
@@ -26,17 +28,7 @@ class TrackerStatus extends Page
 
     protected function getVisibleWidgets(): array
     {
-        return [
-            BasicStatus::class,
-            RequestStatus::class,
-            UserStatus::class,
-            TorrentStatus::class,
-            PeerStatus::class,
-            SnatchedStatus::class,
-            AgentStatus::class,
-            SystemResourceUsage::class,
-            PprofStatus::class,
-        ];
+        return Tracker::WIDGETS;
     }
 
     protected function getColumns(): int | array
