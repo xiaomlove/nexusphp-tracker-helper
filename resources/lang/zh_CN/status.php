@@ -68,4 +68,6 @@ return [
     'WorkerLastRunSyncSnatchedResult' => '上次同步 Snatched 结果',
     'WorkerLastRunSyncPeerCount' => '上次同步 Peer 数',
     'WorkerLastRunSyncPeerResult' => '上次同步 Peer 结果',
+    'WorkerLastRunSyncHitAndRunCount' => '上次同步 H&R 数',
+    'WorkerLastRunSyncHitAndRunResult' => '上次同步 H&R 结果',
 ];
