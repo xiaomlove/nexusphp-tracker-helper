@@ -5,6 +5,7 @@ namespace NexusPlugin\Tracker\Filament;
 use App\Filament\OptionsTrait;
 use App\Filament\PageListSingle;
 use App\Models\NexusModel;
+use App\Models\Setting;
 use Filament\Facades\Filament;
 use NexusPlugin\Tracker\Filament\TrackerResource\Pages;
 use App\Models\OauthClient;
@@ -36,6 +37,14 @@ class TrackerResource extends Resource
     public static function getBreadcrumb(): string
     {
         return self::getNavigationLabel();
+    }
+
+    /**
+     * @return bool
+     */
+    public static function shouldRegisterNavigation(): bool
+    {
+        return Setting::getIsRecordAnnounceLog() && config('clickhouse.connection.host') != '';
     }
 
 //    public static function form(Form $form): Form
