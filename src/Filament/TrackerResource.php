@@ -39,13 +39,6 @@ class TrackerResource extends Resource
         return self::getNavigationLabel();
     }
 
-    /**
-     * @return bool
-     */
-    public static function shouldRegisterNavigation(): bool
-    {
-        return Setting::getIsRecordAnnounceLog() && config('clickhouse.connection.host') != '';
-    }
 
 //    public static function form(Form $form): Form
 //    {
