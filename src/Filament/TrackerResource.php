@@ -25,7 +25,7 @@ class TrackerResource extends Resource
 
 //    protected static ?string $navigationIcon = 'heroicon-o-collection';
 
-    protected static ?string $navigationGroup = 'Other';
+    protected static string|null|\UnitEnum $navigationGroup = 'Other';
 
     protected static ?int $navigationSort = 10;
 
@@ -102,10 +102,10 @@ class TrackerResource extends Resource
 //            ]);
 //    }
 
-    public static function getPages(): array
-    {
-        return [
-            'index' => Pages\TrackerStatus::route('/'),
-        ];
-    }
+//    public static function getPages(): array
+//    {
+//        return [
+//            'index' => Pages\TrackerStatus::route('/'),
+//        ];
+//    }
 }

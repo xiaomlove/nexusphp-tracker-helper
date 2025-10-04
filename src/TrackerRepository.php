@@ -5,6 +5,7 @@ use App\Filament\OptionsTrait;
 use App\Models\User;
 use App\Repositories\ToolRepository;
 use Carbon\Carbon;
+use Filament\Schemas\Components\Tabs\Tab;
 use GuzzleHttp\Client;
 use Nexus\Database\NexusDB;
 use Nexus\Nexus;
@@ -25,7 +26,7 @@ class TrackerRepository extends BasePlugin
 
     const COMPATIBLE_NP_VERSION = '1.9.4';
 
-    const VERSION = '2.0.0';
+    const VERSION = '3.0.0';
 
     private static array $statusData = [];
 
@@ -75,7 +76,7 @@ class TrackerRepository extends BasePlugin
     public function filterAddSettingTab(array $tabs): array
     {
         $prefix = self::SETTING_PREFIX;
-        $tabs[] = Forms\Components\Tabs\Tab::make($this->trans("tracker.name"))
+        $tabs[] = Tab::make($this->trans("tracker.name"))
             ->id(self::ID)
             ->schema([
                 Forms\Components\TextInput::make("$prefix.internal_host")

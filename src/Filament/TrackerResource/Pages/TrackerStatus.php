@@ -15,24 +15,32 @@ use NexusPlugin\Tracker\Filament\Widgets\TorrentStatus;
 use NexusPlugin\Tracker\Filament\Widgets\UserStatus;
 use NexusPlugin\Tracker\Filament\Widgets\WorkerStatus;
 use NexusPlugin\Tracker\Tracker;
+use UnitEnum;
 
-class TrackerStatus extends Page
+class TrackerStatus extends \Filament\Pages\Dashboard
 {
-    protected static string $resource = TrackerResource::class;
+//    protected static string $resource = TrackerResource::class;
 
-    protected ?string $maxContentWidth = 'full';
+    protected static string $routePath = 'tracker-status';
+
+    protected static string | UnitEnum | null $navigationGroup = 'Tracker';
+
+    protected static ?int $navigationSort = 99;
+    protected string|\Filament\Support\Enums\Width|null $maxContentWidth = 'full';
+
+    protected static ?string $title = 'Go Tracker Status';
 
 //    protected static string $view = 'tracker::tracker-status';
 //    protected static string $view = 'filament::pages.dashboard';
-    protected static string $view = 'filament-panels::pages.dashboard';
+//    protected string $view = 'filament-panels::pages.dashboard';
 
-    protected function getVisibleWidgets(): array
+    public function getWidgets(): array
     {
         return Tracker::WIDGETS;
     }
 
-    protected function getColumns(): int | array
-    {
-        return 2;
-    }
+//    protected function getColumns(): int | array
+//    {
+//        return 2;
+//    }
 }
