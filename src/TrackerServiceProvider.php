@@ -2,6 +2,7 @@
 namespace NexusPlugin\Tracker;
 
 use Filament\Panel;
+use NexusPlugin\Tracker\Filament\Pages\TrackerApi;
 use NexusPlugin\Tracker\Filament\TrackerResource\Pages\TrackerStatus;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 use Illuminate\Console\Scheduling\Schedule;
@@ -21,7 +22,11 @@ class TrackerServiceProvider extends PackageServiceProvider
     public function packageRegistered()
     {
         Panel::configureUsing(function (Panel $panel) {
-            $panel->plugin(Tracker::make())->pages([TrackerStatus::class]);
+            $panel->plugin(Tracker::make())
+                ->pages([
+                    TrackerStatus::class,
+                    TrackerApi::class,
+                ]);
         });
 
     }

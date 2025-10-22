@@ -2,6 +2,7 @@
 namespace NexusPlugin\Tracker;
 
 use App\Support\StaticMake;
+use App\Support\TranslateWithPluginId;
 use Filament\Contracts\Plugin;
 use Filament\Panel;
 use NexusPlugin\Tracker\Filament\TrackerResource;
@@ -19,6 +20,7 @@ use NexusPlugin\Tracker\Filament\Widgets\WorkerStatus;
 class Tracker implements Plugin
 {
     use StaticMake;
+    use TranslateWithPluginId;
 
     const ID = "tracker";
     const WIDGETS = [
